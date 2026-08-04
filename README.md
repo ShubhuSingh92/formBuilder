@@ -1587,7 +1587,7 @@ This is a strong assignment-level MVP, not yet a full Typeform/Jotform replaceme
 
 ## Next-step roadmap
 
-See [`decision.md`](decision.md) for a prioritized two-week implementation plan, architectural decisions, acceptance criteria, risks, and explicit out-of-scope items.
+See [`DECISION.md`](dDECISION.md) for a prioritized two-week implementation plan, architectural decisions, acceptance criteria, risks, and explicit out-of-scope items.
 
 ---
 
