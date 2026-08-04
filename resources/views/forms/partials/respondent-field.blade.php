@@ -3,12 +3,15 @@
     $key = (string) ($field['key'] ?? 'field_'.$index);
     $label = (string) ($field['label'] ?? ucfirst(str_replace('_', ' ', $key)));
     $placeholder = (string) ($field['placeholder'] ?? '');
+    if (in_array($type, ['phone', 'tel'], true) && in_array($placeholder, ['', '+1 (555) 000-0000'], true)) {
+        $placeholder = '+91 98765 43210';
+    }
     $helpText = (string) ($field['help_text'] ?? '');
     $required = (bool) ($field['required'] ?? false);
     $options = array_values(array_filter(array_map('strval', $field['options'] ?? []), fn ($option) => $option !== ''));
     $fieldId = 'field-'.$index.'-'.\Illuminate\Support\Str::slug($key);
     $error = $errors->first($key);
-    $baseControl = 'respondent-control'.($error ? ' respondent-control-error' : '');
+    $baseControl = 'respondent-control block w-full rounded-xl border bg-white px-4 py-3 text-base text-slate-900 shadow-sm transition placeholder:text-slate-400 hover:border-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 '.($error ? 'respondent-control-error border-rose-300 bg-rose-50/40' : 'border-slate-300');
     $fileTypes = $field['accepted_file_types'] ?? $field['accept'] ?? '';
     $fileAccept = is_array($fileTypes) ? implode(',', $fileTypes) : (string) $fileTypes;
     $maxUploadMb = max(1, min(50, (int) ($field['max_file_size_mb'] ?? 10)));
@@ -27,7 +30,7 @@
         @endif
     </section>
 @else
-    <div class="respondent-field" data-response-field data-field-type="{{ $type }}">
+    <div class="respondent-field rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition duration-200 focus-within:border-indigo-300 focus-within:ring-4 focus-within:ring-indigo-500/10 sm:p-6" data-response-field data-field-type="{{ $type }}">
         <div class="mb-3 flex items-start justify-between gap-4">
             <div>
                 <label @if (!in_array($type, ['radio', 'checkbox', 'rating'], true)) for="{{ $fieldId }}" @endif class="block text-sm font-bold leading-6 text-slate-800">
@@ -58,7 +61,7 @@
 
             @case('phone')
             @case('tel')
-                <input id="{{ $fieldId }}" type="tel" name="{{ $key }}" value="{{ old($key, $field['default'] ?? '') }}" class="{{ $baseControl }}" placeholder="{{ $placeholder ?: '+1 (555) 000-0000' }}" autocomplete="tel" @if ($required) required @endif @if ($helpText) aria-describedby="{{ $fieldId }}-help" @endif>
+                <input id="{{ $fieldId }}" type="tel" name="{{ $key }}" value="{{ old($key, $field['default'] ?? '') }}" class="{{ $baseControl }}" placeholder="{{ $placeholder }}" autocomplete="tel" inputmode="tel" @if ($required) required @endif @if ($helpText) aria-describedby="{{ $fieldId }}-help" @endif>
                 @break
 
             @case('date')
@@ -83,7 +86,7 @@
                     <legend class="sr-only">{{ $label }}</legend>
                     <div class="grid gap-2.5 sm:grid-cols-2">
                         @forelse ($options as $option)
-                            <label class="respondent-choice">
+                            <label class="respondent-choice flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-indigo-300 hover:bg-white hover:text-indigo-700">
                                 <input type="radio" name="{{ $key }}" value="{{ $option }}" class="h-4 w-4 border-slate-300 text-indigo-600 focus:ring-indigo-500" @checked((string) old($key, $field['default'] ?? '') === $option) @if ($required) required @endif>
                                 <span>{{ $option }}</span>
                             </label>
@@ -100,7 +103,7 @@
                     <legend class="sr-only">{{ $label }}</legend>
                     <div class="grid gap-2.5 sm:grid-cols-2">
                         @forelse ($options as $option)
-                            <label class="respondent-choice">
+                            <label class="respondent-choice flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-indigo-300 hover:bg-white hover:text-indigo-700">
                                 <input type="checkbox" name="{{ $key }}[]" value="{{ $option }}" class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" @checked(in_array($option, $selectedOptions, true))>
                                 <span>{{ $option }}</span>
                             </label>
@@ -128,7 +131,7 @@
             @case('file')
             @case('upload')
             @case('file_upload')
-                <label class="respondent-file-drop {{ $error ? 'border-rose-300 bg-rose-50/40' : '' }}" data-file-drop>
+                <label class="respondent-file-drop relative flex min-h-28 cursor-pointer items-center gap-4 overflow-hidden rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 px-5 py-5 transition hover:border-indigo-400 hover:bg-indigo-50/50 {{ $error ? 'border-rose-300 bg-rose-50/40' : '' }}" data-file-drop>
                     <input id="{{ $fieldId }}" type="file" name="{{ $key }}" class="absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0" @if ($fileAccept) accept="{{ $fileAccept }}" @endif @if ($required) required @endif data-file-input>
                     <span class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-indigo-50 text-indigo-600 ring-1 ring-indigo-100">
                         <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 15V4M7.5 8.5L12 4L16.5 8.5M5 14V19C5 19.6 5.4 20 6 20H18C18.6 20 19 19.6 19 19V14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>

@@ -14,7 +14,10 @@ class FormController extends Controller
 {
     public function index()
     {
-        $forms = Form::where('user_id', auth()->id())->latest()->paginate(10);
+        $forms = Form::where('user_id', auth()->id())
+            ->withCount('submissions')
+            ->latest()
+            ->paginate(10);
 
         return view('forms.index', compact('forms'));
     }

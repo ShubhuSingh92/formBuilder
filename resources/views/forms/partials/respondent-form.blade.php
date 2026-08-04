@@ -17,10 +17,10 @@
     </div>
 @endif
 
-<form method="POST" action="{{ route('forms.submit', $form) }}" enctype="multipart/form-data" class="space-y-5" data-respondent-form>
+<form method="POST" action="{{ route('forms.submit', $form) }}" enctype="multipart/form-data" class="space-y-4 sm:space-y-5" data-respondent-form>
     @csrf
 
-    <div class="mb-7 rounded-2xl border border-slate-200 bg-slate-50/80 p-4" data-form-progress-wrap>
+    <div class="mb-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm" data-form-progress-wrap>
         <div class="flex items-center justify-between gap-4 text-xs font-semibold">
             <span class="text-slate-500"><span data-progress-answered>0</span> of {{ $answerableFields->count() }} answered</span>
             <span class="text-slate-700" data-progress-percent>0%</span>
@@ -43,7 +43,7 @@
                     All fields are optional
                 @endif
             </p>
-            <button type="submit" class="app-button-primary min-h-12 px-6 sm:min-w-40" data-submit-button>
+            <button type="submit" class="app-button-primary min-h-12 w-full px-6 sm:w-auto sm:min-w-40" data-submit-button>
                 <span data-submit-label>{{ $submitLabel ?? 'Submit response' }}</span>
                 <svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10H16M11 5L16 10L11 15" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 <svg class="hidden h-4 w-4 animate-spin" viewBox="0 0 20 20" fill="none" data-submit-spinner aria-hidden="true"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-opacity=".25" stroke-width="2"/><path d="M17 10A7 7 0 0010 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>

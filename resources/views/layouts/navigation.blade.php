@@ -13,6 +13,7 @@
                 <div class="hidden items-center gap-1 lg:flex">
                     <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'bg-slate-950 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950' }} rounded-lg px-3 py-2 text-sm font-semibold transition">Dashboard</a>
                     <a href="{{ route('forms.index') }}" class="{{ request()->routeIs('forms.*') ? 'bg-slate-950 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950' }} rounded-lg px-3 py-2 text-sm font-semibold transition">Forms</a>
+                    <a href="{{ route('submissions.index') }}" class="{{ request()->routeIs('submissions.*') ? 'bg-slate-950 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950' }} rounded-lg px-3 py-2 text-sm font-semibold transition">Submissions</a>
                     <a href="{{ route('ai.form') }}" class="{{ request()->routeIs('ai.*') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950' }} rounded-lg px-3 py-2 text-sm font-semibold transition">AI generator</a>
                     <a href="{{ route('imports.create') }}" class="{{ request()->routeIs('imports.*') ? 'bg-indigo-50 text-indigo-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950' }} rounded-lg px-3 py-2 text-sm font-semibold transition">Imports</a>
                 </div>
@@ -58,6 +59,7 @@
         <div class="space-y-1">
             <a href="{{ route('dashboard') }}" class="block rounded-xl px-3 py-2.5 text-sm font-semibold {{ request()->routeIs('dashboard') ? 'bg-slate-950 text-white' : 'text-slate-700 hover:bg-slate-100' }}">Dashboard</a>
             <a href="{{ route('forms.index') }}" class="block rounded-xl px-3 py-2.5 text-sm font-semibold {{ request()->routeIs('forms.*') ? 'bg-slate-950 text-white' : 'text-slate-700 hover:bg-slate-100' }}">Forms</a>
+            <a href="{{ route('submissions.index') }}" class="block rounded-xl px-3 py-2.5 text-sm font-semibold {{ request()->routeIs('submissions.*') ? 'bg-slate-950 text-white' : 'text-slate-700 hover:bg-slate-100' }}">Submissions</a>
             <a href="{{ route('ai.form') }}" class="block rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-100">AI generator</a>
             <a href="{{ route('imports.create') }}" class="block rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-100">Imports</a>
         </div>

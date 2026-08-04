@@ -78,7 +78,7 @@
                         @if ($form->is_public)
                             <button type="button" class="app-button-secondary" data-copy-url="{{ route('forms.public', $form->slug) }}">
                                 <svg class="h-4 w-4" viewBox="0 0 20 20" fill="none"><path d="M7.5 10.5L12.5 5.5M6.5 6.5L8 5C9.4 3.6 11.6 3.6 13 5C14.4 6.4 14.4 8.6 13 10L11.5 11.5M13.5 13.5L12 15C10.6 16.4 8.4 16.4 7 15C5.6 13.6 5.6 11.4 7 10L8.5 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                                Share
+                                <span data-copy-label>Share</span>
                             </button>
                         @endif
                         <a href="{{ route('forms.preview', $form) }}" target="_blank" class="app-button-secondary">
@@ -109,7 +109,7 @@
                         </div>
                     </div>
                     @if (session('public_url'))
-                        <button type="button" class="app-button-secondary !border-emerald-200 !bg-white !py-2 !text-emerald-800" data-copy-url="{{ session('public_url') }}">Copy public URL</button>
+                        <button type="button" class="app-button-secondary !border-emerald-200 !bg-white !py-2 !text-emerald-800" data-copy-url="{{ session('public_url') }}"><span data-copy-label>Copy public URL</span></button>
                     @endif
                 </div>
             </div>

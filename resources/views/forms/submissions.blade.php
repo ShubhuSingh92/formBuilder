@@ -34,7 +34,7 @@
 
             <div class="space-y-4">
                 @forelse ($submissions as $submission)
-                    <article class="app-surface overflow-hidden">
+                    <article id="submission-{{ $submission->id }}" class="app-surface scroll-mt-24 overflow-hidden">
                         <header class="flex flex-col gap-2 border-b border-slate-100 bg-slate-50/70 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
                             <div class="flex items-center gap-3">
                                 <span class="grid h-9 w-9 place-items-center rounded-xl bg-slate-950 text-xs font-extrabold text-white">#{{ $submission->id }}</span>

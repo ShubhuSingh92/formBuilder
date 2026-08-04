@@ -49,7 +49,7 @@ const initializeFormBuilder = () => {
         textarea: { type: 'textarea', key: 'long_text', label: 'Long text', placeholder: 'Type your answer', help_text: '', default: '', required: false, options: [], validations: [] },
         number: { type: 'number', key: 'number', label: 'Number', placeholder: '0', help_text: '', default: '', required: false, options: [], validations: ['numeric'] },
         email: { type: 'email', key: 'email', label: 'Email address', placeholder: 'name@example.com', help_text: '', default: '', required: false, options: [], validations: ['email'] },
-        phone: { type: 'phone', key: 'phone', label: 'Phone number', placeholder: '+1 (555) 000-0000', help_text: '', default: '', required: false, options: [], validations: [] },
+        phone: { type: 'phone', key: 'phone', label: 'Phone number', placeholder: '+91 98765 43210', help_text: '', default: '', required: false, options: [], validations: [] },
         date: { type: 'date', key: 'date', label: 'Date', placeholder: '', help_text: '', default: '', required: false, options: [], validations: [] },
         dropdown: { type: 'dropdown', key: 'dropdown', label: 'Choose an option', placeholder: 'Select an option', help_text: '', default: '', required: false, options: ['Option 1', 'Option 2'], validations: [] },
         radio: { type: 'radio', key: 'radio_group', label: 'Choose one', placeholder: '', help_text: '', default: '', required: false, options: ['Option 1', 'Option 2'], validations: [] },
@@ -161,7 +161,7 @@ const initializeFormBuilder = () => {
             case 'email':
                 return `<input disabled type="email" class="${controlClass}" placeholder="${placeholder || 'name@example.com'}">`;
             case 'phone':
-                return `<input disabled type="tel" class="${controlClass}" placeholder="${placeholder || '+1 (555) 000-0000'}">`;
+                return `<input disabled type="tel" class="${controlClass}" placeholder="${placeholder || '+91 98765 43210'}">`;
             case 'date':
                 return `<input disabled type="date" class="${controlClass}">`;
             case 'dropdown':

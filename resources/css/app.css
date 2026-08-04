@@ -50,6 +50,14 @@
         @apply inline-flex h-9 w-9 items-center justify-center rounded-lg border border-transparent text-slate-500 transition hover:border-slate-200 hover:bg-slate-50 hover:text-slate-900 focus:outline-none focus:ring-4 focus:ring-slate-200/70 disabled:cursor-not-allowed disabled:opacity-35;
     }
 
+    [data-copy-url][data-copy-state='success'] {
+        @apply !border-emerald-600 !bg-emerald-600 !text-white;
+    }
+
+    [data-copy-url][data-copy-state='error'] {
+        @apply !border-rose-600 !bg-rose-600 !text-white;
+    }
+
     .builder-grid-bg {
         background-color: rgb(248 250 252);
         background-image:

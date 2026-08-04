@@ -5,6 +5,7 @@ use App\Http\Controllers\FormController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SchemaEditorController;
+use App\Http\Controllers\SubmissionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,6 +24,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/forms/{form}/submissions', [FormController::class, 'submissions'])->name('forms.submissions');
     Route::get('/forms/{form}/submissions/{submission}/files/{field}', [FormController::class, 'downloadSubmissionFile'])->name('forms.submissions.files.download');
     Route::get('/forms/{form}/share', [FormController::class, 'share'])->name('forms.share');
+    Route::get('/submissions', [SubmissionController::class, 'index'])->name('submissions.index');
     Route::get('/imports', [ImportController::class, 'create'])->name('imports.create');
     Route::post('/imports', [ImportController::class, 'store'])->name('imports.store');
     Route::get('/imports/{job}', [ImportController::class, 'show'])->name('imports.show');

@@ -133,7 +133,7 @@ class AiFormService
                 'key' => 'phone',
                 'label' => 'Phone number',
                 'required' => false,
-                'placeholder' => 'Enter your phone number',
+                'placeholder' => '+91 98765 43210',
                 'help_text' => 'Optional but helpful.',
                 'default' => '',
                 'options' => [],
