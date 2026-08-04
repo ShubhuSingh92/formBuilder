@@ -165,7 +165,7 @@
             </div>
 
             <p class="eyebrow">Laravel + Livewire Assignment</p>
-            <h1 id="page-title">Drag-and-drop Form Builder</h1>
+            <h1 id="page-title">Laravel AI Drag-and-drop Form Builder</h1>
             <p class="description">
                 Create flexible forms, arrange fields visually, publish a shareable link, and review every submission from one dashboard.
             </p>
