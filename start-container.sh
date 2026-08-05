@@ -35,23 +35,25 @@ fi
 
 # Only run migrations if database variables are set
 if [ -n "$DB_HOST" ] && [ -n "$DB_DATABASE" ]; then
-    echo "Waiting for database to be ready..."
-
-    # Try to connect to database (retry 30 times with 1 second delay)
-    for i in {1..30}; do
-        if php artisan tinker --execute="DB::connection()->getPdo()" 2>/dev/null; then
-            echo "Database is ready!"
-            break
-        fi
-        echo "Attempt $i/30: Waiting for database..."
-        sleep 1
-    done
-
     echo "Running migrations..."
     php artisan migrate --force --no-interaction || true
 else
-    echo "Skipping database migrations - DB variables not set"
+    echo "Skipping migrations - DB variables not set"
 fi
 
-echo "Starting FrankenPHP..."
+# Create Caddyfile for FrankenPHP
+cat > /Caddyfile << 'CADDY'
+{
+    frankenphp
+}
+
+:80 {
+    root * /app/public
+    encode gzip
+    file_server
+    php_server
+}
+CADDY
+
+echo "Starting FrankenPHP with Caddy..."
 exec frankenphp run
