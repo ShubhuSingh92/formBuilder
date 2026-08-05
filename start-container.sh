@@ -10,9 +10,6 @@ APP_KEY=${APP_KEY:-}
 APP_DEBUG=${APP_DEBUG:-false}
 APP_URL=${APP_URL:-http://localhost}
 
-LOG_CHANNEL=${LOG_CHANNEL:-stack}
-LOG_LEVEL=${LOG_LEVEL:-debug}
-
 DB_CONNECTION=${DB_CONNECTION:-mysql}
 DB_HOST=${DB_HOST}
 DB_PORT=${DB_PORT:-3306}
@@ -31,14 +28,14 @@ if ! grep -q "APP_KEY=base64:" /app/.env; then
     php artisan key:generate --force
 fi
 
+# Set permissions
+chown -R www-data:www-data /app/storage /app/bootstrap/cache
+
 # Run migrations
 if [ -n "$DB_HOST" ] && [ -n "$DB_DATABASE" ]; then
+    echo "Running migrations..."
     php artisan migrate --force --no-interaction || true
 fi
 
-# Start PHP-FPM and Nginx
-echo "Starting PHP-FPM..."
-php-fpm &
-
-echo "Starting Nginx..."
-exec nginx -g "daemon off;"
+echo "Starting Laravel server on 0.0.0.0:80..."
+exec php artisan serve --host=0.0.0.0 --port=80
