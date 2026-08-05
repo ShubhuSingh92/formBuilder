@@ -1,5 +1,12 @@
 FROM dunglas/frankenphp:php8.3.33-bookworm
 
+# Install Node.js
+RUN apt-get update && apt-get install -y \
+    curl \
+    && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+    && apt-get install -y nodejs \
+    && apt-get clean
+
 # Install GD extension and other dependencies
 RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
