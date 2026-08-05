@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# Create .env from environment variables if it doesn't exist
+# Create .env
 if [ ! -f /app/.env ]; then
     cat > /app/.env << EOF
 APP_NAME=${APP_NAME:-Laravel}
@@ -24,36 +24,21 @@ CACHE_DRIVER=${CACHE_DRIVER:-file}
 SESSION_DRIVER=${SESSION_DRIVER:-file}
 QUEUE_CONNECTION=${QUEUE_CONNECTION:-sync}
 EOF
-    echo "Created .env file"
 fi
 
-# Generate APP_KEY if not set
+# Generate APP_KEY
 if ! grep -q "APP_KEY=base64:" /app/.env; then
     php artisan key:generate --force
-    echo "Generated APP_KEY"
 fi
 
-# Only run migrations if database variables are set
+# Run migrations
 if [ -n "$DB_HOST" ] && [ -n "$DB_DATABASE" ]; then
-    echo "Running migrations..."
     php artisan migrate --force --no-interaction || true
-else
-    echo "Skipping migrations - DB variables not set"
 fi
 
-# Create Caddyfile for FrankenPHP
-cat > /Caddyfile << 'CADDY'
-{
-    frankenphp
-}
+# Start PHP-FPM and Nginx
+echo "Starting PHP-FPM..."
+php-fpm &
 
-:80 {
-    root * /app/public
-    encode gzip
-    file_server
-    php_server
-}
-CADDY
-
-echo "Starting FrankenPHP with Caddy..."
-exec frankenphp run
+echo "Starting Nginx..."
+exec nginx -g "daemon off;"
