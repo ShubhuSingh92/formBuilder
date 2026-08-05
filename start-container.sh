@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 # Create .env
 if [ ! -f /app/.env ]; then
@@ -29,7 +28,7 @@ if ! grep -q "APP_KEY=base64:" /app/.env; then
 fi
 
 # Set permissions
-chown -R www-data:www-data /app/storage /app/bootstrap/cache
+chown -R www-data:www-data /app/storage /app/bootstrap/cache 2>/dev/null || true
 
 # Run migrations
 if [ -n "$DB_HOST" ] && [ -n "$DB_DATABASE" ]; then
@@ -37,5 +36,9 @@ if [ -n "$DB_HOST" ] && [ -n "$DB_DATABASE" ]; then
     php artisan migrate --force --no-interaction || true
 fi
 
-echo "Starting Laravel server on 0.0.0.0:80..."
-exec php artisan serve --host=0.0.0.0 --port=80
+echo "✅ Application starting..."
+echo "📍 Server will be accessible at: $APP_URL"
+echo "🚀 Starting Laravel server on 0.0.0.0:80"
+
+# Start server in foreground (IMPORTANT - keeps container running)
+exec php artisan serve --host=0.0.0.0 --port=80 --no-ansi
