@@ -1,5 +1,0 @@
-[phases.setup]
-nixPackages = ["php.extensions.gd"]
-
-[phases.install]
-cmds = ["composer install --optimize-autoloader --no-scripts --no-interaction"]
