@@ -1,12 +1,24 @@
 #!/bin/bash
+set -e
 
-# Generate APP_KEY if not set
-if [ -z "$APP_KEY" ]; then
-    php artisan key:generate
+# Create .env if it doesn't exist
+if [ ! -f /app/.env ]; then
+    cp /app/.env.example /app/.env
+    echo "Created .env from .env.example"
 fi
 
-# Run migrations
-php artisan migrate --force
+# Generate APP_KEY if not set
+if ! grep -q "APP_KEY=base64:" /app/.env; then
+    php artisan key:generate --force
+    echo "Generated APP_KEY"
+fi
 
-# Start FrankenPHP
-exec frankenphp run --listen 0.0.0.0:80
+# Wait for database to be ready
+echo "Waiting for database..."
+php artisan db:ping || sleep 5
+
+# Run migrations
+php artisan migrate --force --no-interaction || true
+
+echo "Starting FrankenPHP..."
+exec frankenphp run

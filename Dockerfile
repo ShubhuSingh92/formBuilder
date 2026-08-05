@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get install -y nodejs \
     && apt-get clean
 
-# Install GD extension and other dependencies
+# Install GD, Zip, and MySQL extensions
 RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     libjpeg-dev \
@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
     libgif-dev \
     libzip-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd zip \
+    && docker-php-ext-install gd zip pdo pdo_mysql \
     && apt-get clean
 
 # Install Composer
