@@ -6,8 +6,9 @@ RUN apt-get update && apt-get install -y \
     libjpeg-dev \
     libpng-dev \
     libgif-dev \
+    libzip-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd \
+    && docker-php-ext-install gd zip \
     && apt-get clean
 
 # Install Composer
@@ -18,7 +19,7 @@ WORKDIR /app
 COPY . .
 
 # Install composer dependencies
-RUN composer install --optimize-autoloader --no-scripts --no-interaction
+RUN COMPOSER_ALLOW_SUPERUSER=1 composer install --optimize-autoloader --no-scripts --no-interaction
 
 # Install node dependencies
 RUN npm install
