@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
     libjpeg-dev \
     libpng-dev \
     libgif-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-png \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd \
     && apt-get clean
 
