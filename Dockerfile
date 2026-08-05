@@ -25,11 +25,14 @@ WORKDIR /app
 
 COPY . .
 
-# Install composer dependencies
+# Install dependencies
 RUN COMPOSER_ALLOW_SUPERUSER=1 composer install --optimize-autoloader --no-scripts --no-interaction
-
-# Install node dependencies
 RUN npm install
+RUN npm run build
+
+# Copy and make startup script executable
+COPY start-container.sh /start-container.sh
+RUN chmod +x /start-container.sh
 
 EXPOSE 80
 
